@@ -18,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/test', function (){
+    return "HELLO WORLD";
+});
 Route::get('/addItem', function (){
     return view('pages.addItem');
 });
