@@ -81,7 +81,12 @@
                     </div>
                     <div class="row">
                         <div class="col-md-8">
-                            <a href="#!" class="btn btn-block btn-lg btn-primary">Add to Cart</a>
+                            <form onsubmit="addCart(this); return false;">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{$product->id}}">
+                                <input id="addCartBtn" type="submit" class="btn btn-block btn-lg btn-primary" value="Добавить в корзину">
+                            </form>
+
                         </div>
                         <div class="col-12 mt-1">
                             <ul class="nav nav-actions">
@@ -107,4 +112,18 @@
             </div>
         </div>
     </section>
+    <script>
+        const addCartBtn = document.getElementById('addCartBtn');
+        function addCart(form){
+            const formData = new FormData(form);
+            fetch('/addCart', {
+                method: 'POST',
+                body: formData
+            }).then(response=>response.json())
+                .then(result=>{
+                    console.log(result);
+                    addCartBtn.value = "В корзине";
+            });
+        }
+    </script>
 @endsection

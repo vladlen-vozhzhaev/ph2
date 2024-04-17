@@ -18,10 +18,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('pages.mainPage');
 });
-
-Route::get('/addItem', function (){
-    return view('pages.addItem');
+Route::middleware('admin')->group(function (){
+    Route::get('/secret', function (){
+        return "Hello secret!";
+    });
+    Route::get('/addItem', function (){
+        return view('pages.addItem');
+    });
 });
+
 Route::post('/addItem', function (\Illuminate\Http\Request $request){
     $product = new Product();
     $product->name = $request->name;
@@ -53,6 +58,27 @@ Route::get('/shop/{id}', function (\Illuminate\Http\Request $request){
    return view('pages.singleProduct', ['product'=>$product, 'productImages'=>$productImages]);
 });
 
+Route::get('/cart', function (){
+    $carts = \App\Models\Cart::where('user_id', auth()->user()->getAuthIdentifier())->get();
+    $products = [];
+    foreach ($carts as $cart){
+        $product = Product::where('id', $cart->product_id)->first();
+        $products[] = $product;
+    }
+    return view('pages.cart', ['products'=>$products]);
+})->middleware('auth');
+
+
+
+Route::post('/addCart', function (\Illuminate\Http\Request $request){
+   $productId = $request->product_id;
+   $userId = auth()->user()->getAuthIdentifier();
+   $cart = new \App\Models\Cart();
+   $cart->product_id = $productId;
+   $cart->user_id = $userId;
+   $cart->save();
+   return json_encode(['result'=>'success']);
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
