@@ -28,30 +28,33 @@
                 <div class="col-lg-8 cart-item-list">
                     @foreach($products as $product)
                         <!-- cart item -->
-                        <div class="cart-item">
+                        <div class="cart-item cart-product">
                             <div class="row align-items-center">
                                 <div class="col-12 col-lg-6">
                                     <div class="media media-product">
-                                        <a href="#!"><img src="assets/images/demo/product-4.jpg" alt="Image"></a>
+                                        <a href="#!"><img src="{{$product->image}}" alt="Image"></a>
                                         <div class="media-body">
                                             <h5 class="media-title">{{$product->name}}</h5>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-4 col-lg-2 text-center">
-                                    <span class="cart-item-price">{{$product->cost}}руб.</span>
+                                    <span class="cart-item-price">
+                                        <span class="price">{{$product->cost}}</span>руб.</span>
                                 </div>
                                 <div class="col-4 col-lg-2 text-center">
                                     <div class="counter">
-                                        <span class="counter-minus icon-minus" field='qty-1'></span>
-                                        <input type='text' name='qty-1' class="counter-value" value="2" min="1" max="10">
-                                        <span class="counter-plus icon-plus" field='qty-1'></span>
+                                        <span onclick="changeQuantity(this, '-')" class="counter-minus icon-minus"></span>
+                                        <input data-cart-id="{{$product->cart_id}}" type='text' name='qty-1' class="counter-value" value="{{$product->quantity}}" min="1" max="10">
+                                        <span onclick="changeQuantity(this, '+')" class="counter-plus icon-plus" ></span>
                                     </div>
                                 </div>
                                 <div class="col-4 col-lg-2 text-center">
-                                    <span class="cart-item-price">{{$product->cost}}руб.</span>
+                                    <span class="cart-item-price">
+                                        <span class="price total-price">{{$product->cost * $product->quantity}}</span>руб.
+                                    </span>
                                 </div>
-                                <a href="#!" class="cart-item-close"><i class="icon-x"></i></a>
+                                <a href="#!" onclick="deleteCart({{$product->cart_id}})" class="cart-item-close"><i class="icon-x"></i></a>
                             </div>
                         </div>
                     @endforeach
@@ -62,30 +65,16 @@
                         <div class="card-header py-2 px-3">
                             <div class="row align-items-center">
                                 <div class="col">
-                                    <h3 class="fs-18 mb-0">Order Summary</h3>
+                                    <h3 class="fs-18 mb-0">Итог</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="card-body">
-                            <ul class="list-group list-group-minimal">
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Subtotal
-                                    <span>$418</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    Shipping
-                                    <span>Free</span>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    <a href="" class="text-primary action underline">Add coupon code</a>
-                                </li>
-                            </ul>
-                        </div>
                         <div class="card-footer py-2">
                             <ul class="list-group list-group-minimal">
                                 <li class="list-group-item d-flex justify-content-between align-items-center text-dark fs-18">
-                                    Total
-                                    <span>$418</span>
+                                    Итого:
+                                    <span id="resultPrice">$418</span>
                                 </li>
                             </ul>
                         </div>
@@ -96,4 +85,58 @@
             </div>
         </div>
     </section>
+    @csrf
+    <script>
+        const _token = document.getElementsByName('_token')[0].value
+        function changeQuantity(btn, changer){
+            const quantityInput = btn.parentElement.getElementsByTagName('input')[0];
+            const price = +btn.parentElement.parentElement.previousElementSibling.querySelector('span.price').innerText;
+            const totalSpan = btn.parentElement.parentElement.nextElementSibling.querySelector('span.price');
+            const cartId = quantityInput.dataset.cartId;
+            const resultPrice = document.getElementById('resultPrice');
+            let currentQuantity = +quantityInput.value;
+            if(changer === '+' && currentQuantity < 10){
+                currentQuantity = currentQuantity+1
+            }else if(changer === '-' && currentQuantity>1){
+                currentQuantity = currentQuantity-1
+            }
+            let total = price * currentQuantity;
+            quantityInput.value = currentQuantity;
+            totalSpan.innerText = total;
+            const formData = new FormData();
+            formData.append('quantity', currentQuantity);
+            formData.append('_token', _token);
+            formData.append('cart_id', cartId);
+            fetch('/changeQuantity', {
+                method: 'post',
+                body: formData
+            }).then(response=>response.json())
+                .then(result=>{
+                    console.log(result);
+                })
+            calcTotal();
+        }
+        function calcTotal(){
+            const cartItems = document.querySelectorAll('.cart-product');
+            let total = 0;
+            cartItems.forEach( item => {
+                total += +item.querySelector('.total-price').innerText;
+            })
+            resultPrice.innerText = total+"руб."
+        }
+        function deleteCart(cartId){
+            const formData = new FormData();
+            formData.append('cart_id', cartId);
+            formData.append('_token', _token);
+            fetch('/deleteCart', {
+                method: 'post',
+                body: formData
+            }).then(response=>response.json())
+                .then(result=>{
+                    if(result.result == "success")
+                        location.reload();
+                })
+        }
+        calcTotal()
+    </script>
 @endsection
