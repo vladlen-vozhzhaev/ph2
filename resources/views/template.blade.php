@@ -23,97 +23,35 @@
                 <div class="collapse navbar-collapse order-3 order-lg-1" id="navbarMenu">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link " href="/" id="navbarDropdown-11" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Home
+                            <a class="nav-link " href="/">
+                                Главная
                             </a>
                         </li>
-                        <li class="nav-item dropdown megamenu">
-                            <a class="nav-link dropdown-toggle" href="#!" id="navbarDropdown-4" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Pages
+                        {{--<li class="nav-item">
+                            <a class="nav-link" href="/shop">
+                                Каталог
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown-4">
-                                <div class="row">
-                                    <ul class="col-6 col-md-3 col-lg-2">
-                                        <li><span class="megamenu-title">Home</span></li>
-                                        <li><a class="dropdown-item" href="index.html">Home - classic</a></li>
-                                        <li><a class="dropdown-item" href="index-carousel.html">Home - carousel</a></li>
-                                        <li><a class="dropdown-item" href="index-categories.html">Home - categories</a></li>
-                                        <li><a class="dropdown-item" href="index-modern.html">Home - modern</a></li>
-                                        <li><a class="dropdown-item" href="index-minimal.html">Home - minimal</a></li>
-                                        <li><span class="megamenu-title">Shop</span></li>
-                                        <li><a class="dropdown-item" href="listing-sidebar.html">Listing - sidebar</a></li>
-                                        <li><a class="dropdown-item" href="listing-full.html">Listing - full width</a></li>
-                                        <li><a class="dropdown-item" href="listing-masonry.html">Listing - masonry</a></li>
-                                        <li><a class="dropdown-item" href="listing-modern.html">Listing - modern</a></li>
-                                    </ul>
-                                    <ul class="col-6 col-md-3 col-lg-2">
-                                        <li><span class="megamenu-title">Product</span></li>
-                                        <li><a class="dropdown-item" href="product-classic.html">Product - classic</a></li>
-                                        <li><a class="dropdown-item" href="product-scroll.html">Product - scroll</a></li>
-                                        <li><a class="dropdown-item" href="product-masonry.html">Product - masonry</a></li>
-                                        <li><a class="dropdown-item" href="product-modern.html">Product - modern</a></li>
-                                        <li><a class="dropdown-item" href="product-promo.html">Product - promo</a></li>
-                                        <li><a class="dropdown-item" href="product-oos.html">Product - out of stock</a></li>
-                                        <li><span class="megamenu-title">Order</span></li>
-                                        <li><a class="dropdown-item" href="cart.html">Cart</a></li>
-                                        <li><a class="dropdown-item" href="cart-full.html">Cart - full width</a></li>
-                                        <li><a class="dropdown-item" href="checkout.html">Checkout</a></li>
-                                    </ul>
-                                    <ul class="col-6 col-md-3 col-lg-2">
-                                        <li><span class="megamenu-title">Account</span></li>
-                                        <li><a class="dropdown-item" href="portal.html">Log In</a></li>
-                                        <li><a class="dropdown-item" href="profile.html">Profile</a></li>
-                                        <li><a class="dropdown-item" href="profile-orders.html">Orders</a></li>
-                                        <li><a class="dropdown-item" href="profile-addresses.html">Addresses</a></li>
-                                        <li><a class="dropdown-item" href="profile-payments.html">Payments</a></li>
-                                        <li><a class="dropdown-item" href="profile-wishlist.html">Wishlist</a></li>
-                                        <li><span class="megamenu-title">Blog</span></li>
-                                        <li><a class="dropdown-item" href="blog-cards.html">Blog - cards</a></li>
-                                        <li><a class="dropdown-item" href="blog-posts.html">Blog - posts</a></li>
-                                        <li><a class="dropdown-item" href="post.html">Post</a></li>
-                                    </ul>
-                                    <ul class="col-6 col-md-3 col-lg-2">
-                                        <li><span class="megamenu-title">Pages</span></li>
-                                        <li><a class="dropdown-item" href="about.html">About</a></li>
-                                        <li><a class="dropdown-item" href="contact.html">Contact</a></li>
-                                        <li><a class="dropdown-item" href="faq.html">FAQ</a></li>
-                                        <li><a class="dropdown-item" href="text.html">Text Page</a></li>
-                                        <li><a class="dropdown-item" href="404.html">404</a></li>
-                                        <li><a class="dropdown-item" href="coming-soon.html">Coming Soon</a></li>
-                                        <li><span class="megamenu-title">Docs</span></li>
-                                        <li><a class="dropdown-item" href="/documentation/index.html">Documentation</a></li>
-                                        <li><a class="dropdown-item" href="/documentation/changelog.html">Changelog</a></li>
-                                    </ul>
-                                    <div class="col-lg-4">
-                                        <div class="promo">
-                                            <span class="image image-overlay" style="background-image: url(assets/images/background-3.jpg)"></span>
-                                            <div class="promo-footer p-4 text-white">
-                                                <h3 class="mb-0">New Collection</h3>
-                                                <a href="#!" class="eyebrow underline text-white">Shop Now</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="documentation/index.html">
-                                Docs
-                            </a>
-                        </li>
+                        </li>--}}
                     </ul>
                 </div>
 
                 <div class="collapse navbar-collapse order-4 order-lg-3" id="navbarMenu2">
                     <ul class="navbar-nav ml-auto">
+                        @auth
+                            <li class="nav-item">
+                                <a class="nav-link" href="/profile">Личный кабинет</a>
+                            </li>
+                            <li class="nav-item">
+                                <form action="/logout" method="post" id="logoutForm">@csrf</form>
+                                <a class="nav-link" href="#" onclick="logoutForm.submit(); return false;">Выход</a>
+                            </li>
+                        @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login">Войти</a>
+                            </li>
+                        @endauth
                         <li class="nav-item">
-                            <a class="nav-link" href="portal.html">Log In</a>
-                        </li>
-                        <li class="nav-item">
-                            <a data-toggle="modal" data-target="#search" class="nav-link"><i class="icon-search"></i></a>
-                        </li>
-                        <li class="nav-item cart">
-                            <a data-toggle="modal" data-target="#cart" class="nav-link"><span>Cart</span><span>2</span></a>
+                            <a data-bs-toggle="modal" data-bs-target="#cart" class="nav-link"><span>Корзина</span></a>
                         </li>
                     </ul>
                 </div>
@@ -130,19 +68,13 @@
         <div class="row separated">
             <div class="col-lg-6 py-10">
                 <div class="row">
-                    <div class="col-md-8">
-                        <p>Thanks to <a href="https://www.opumo.com" class="underline">Opumo</a> for the images used in this demo theme. Head over to <a href="https://www.opumo.com" class="underline">their store</a> to get these products.</p>
-                    </div>
-                </div>
-                <div class="row">
                     <div class="col-md-10">
-                        <h4 class="eyebrow mb-2">Quick Links</h4>
+                        <h4 class="eyebrow mb-2"> Навигация</h4>
                         <ul class="list-group list-group-columns">
-                            <li class="list-group-item"><a href="about.html">About</a></li>
-                            <li class="list-group-item"><a href="contact.html">Contact Us</a></li>
-                            <li class="list-group-item"><a href="faq.html">FAQ</a></li>
-                            <li class="list-group-item"><a href="blog.html">Blog</a></li>
-                            <li class="list-group-item"><a href="text.html">Terms of Use</a></li>
+                            <li class="list-group-item"><a href="/">Главная</a></li>
+                            <li class="list-group-item"><a href="/shop">Каталог</a></li>
+                            <li class="list-group-item"><a href="/login">Авторизация</a></li>
+                            <li class="list-group-item"><a href="/cart">Корзина</a></li>
                         </ul>
                     </div>
                 </div>
@@ -150,18 +82,7 @@
             <div class="col-lg-6 py-10">
                 <div class="row justify-content-end">
                     <div class="col-lg-10">
-                        <h4 class="eyebrow mb-2">Subscribe</h4>
-                        <div class="input-group">
-                            <input type="text" class="form-control form-control-lg" placeholder="Email" aria-label="Subscribe" aria-describedby="button-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-white" type="button" id="button-addon2">Subscribe</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-end">
-                    <div class="col-lg-10">
-                        <h4 class="eyebrow mb-2">Follow us</h4>
+                        <h4 class="eyebrow mb-2">Наши социальные сети</h4>
                         <nav class="nav nav-icons">
                             <a class="nav-link" href="#!"><i class="icon-facebook-o"></i></a>
                             <a class="nav-link" href="#!"><i class="icon-twitter-o"></i></a>
@@ -187,64 +108,8 @@
             </div>
             <div class="modal-body">
 
-                <div class="row gutter-3">
-                    <div class="col-12">
-                        <div class="cart-item cart-item-sm">
-                            <div class="row align-items-center">
-                                <div class="col-lg-9">
-                                    <div class="media media-product">
-                                        <a href="#!"><img src="assets/images/demo/product-3.jpg" alt="Image"></a>
-                                        <div class="media-body">
-                                            <h5 class="media-title">Black IC Pendant Light</h5>
-                                            <span class="media-subtitle">Black, Steel</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 text-center text-lg-right">
-                                    <span class="cart-item-price">$90</span>
-                                </div>
-                                <a href="#!" class="cart-item-close"><i class="icon-x"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="cart-item cart-item-sm">
-                            <div class="row align-items-center">
-                                <div class="col-lg-9">
-                                    <div class="media media-product">
-                                        <a href="#!"><img src="assets/images/demo/product-4.jpg" alt="Image"></a>
-                                        <div class="media-body">
-                                            <h5 class="media-title">Red Analog Magazine Rack</h5>
-                                            <span class="media-subtitle">Red</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 text-center text-lg-right">
-                                    <span class="cart-item-price">$120</span>
-                                </div>
-                                <a href="#!" class="cart-item-close"><i class="icon-x"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12">
-                        <div class="cart-item cart-item-sm">
-                            <div class="row align-items-center">
-                                <div class="col-lg-9">
-                                    <div class="media media-product">
-                                        <a href="#!"><img src="assets/images/demo/product-24.jpg" alt="Image"></a>
-                                        <div class="media-body">
-                                            <h5 class="media-title">Closca Helmet</h5>
-                                            <span class="media-subtitle">Black</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 text-center text-lg-right">
-                                    <span class="cart-item-price">$132</span>
-                                </div>
-                                <a href="#!" class="cart-item-close"><i class="icon-x"></i></a>
-                            </div>
-                        </div>
-                    </div>
+                <div class="row gutter-3" id="cartList">
+
                 </div>
 
             </div>
@@ -252,10 +117,10 @@
                 <div class="container-fluid">
                     <div class="row gutter-0">
                         <div class="col d-none d-md-block">
-                            <a href="cart.html" class="btn btn-lg btn-block btn-secondary">View Cart</a>
+                            <a href="/cart" class="btn btn-lg btn-block btn-secondary">Перейти к корзине</a>
                         </div>
                         <div class="col">
-                            <a href="checkout.html" class="btn btn-lg btn-block btn-primary">Checkout</a>
+                            <a href="checkout.html" class="btn btn-lg btn-block btn-primary">Заказать</a>
                         </div>
                     </div>
                 </div>
@@ -263,26 +128,74 @@
         </div>
     </div>
 </div>
-
-
-<!-- search -->
-<div class="modal fade search" id="search" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <input type="text" class="form-control" placeholder="Type your search here" aria-label="Type your search here" aria-describedby="button-addon2">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
 <script src="/assets/js/vendor.min.js"></script>
 <script src="/assets/js/app.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+
+<script>
+    const cartList = document.getElementById('cartList');
+    const myModalEl = document.getElementById('cart')
+    myModalEl.addEventListener('show.bs.modal', event => {
+        getCart();
+    })
+
+    function getCart(){
+        fetch('/getCart')
+            .then(response=>response.json())
+            .then(result=>{
+                cartList.innerHTML = "";
+                result.forEach(cart=>{
+                    renderCartItem(cart)
+                })
+            })
+    }
+
+    function renderCartItem(cart){
+        const col12 = document.createElement('div');
+        const cartItem = document.createElement('div');
+        const row = document.createElement('div');
+        const colLg9 = document.createElement('div');
+        const colLg3 = document.createElement('div');
+        const deleteBtn = document.createElement('a');
+        const mediaProduct = document.createElement('div');
+        const img = document.createElement('img');
+        const mediaBody = document.createElement('div');
+        col12.classList.add('col-12');
+        cartItem.classList.add('cart-item', 'cart-item-sm');
+        row.classList.add('row', 'align-items-center');
+        colLg9.classList.add('col-lg-9');
+        colLg3.classList.add('col-lg-3', 'text-center', 'text-lg-right');
+        colLg3.innerHTML = `<span class="cart-item-price">${cart.cost}руб.</span>`;
+        deleteBtn.classList.add('cart-item-close');
+        deleteBtn.innerHTML = `<i class="icon-x"></i>`;
+        mediaProduct.classList.add('media', 'media-product');
+        img.src = cart.image;
+        mediaBody.classList.add('media-body');
+        mediaBody.innerHTML = `<h5 class="media-title">${cart.name}</h5>`;
+        mediaProduct.append(img, mediaBody);
+        colLg9.append(mediaProduct);
+        row.append(colLg9, colLg3, deleteBtn);
+        cartItem.append(row);
+        col12.append(cartItem);
+        cartList.append(col12);
+        deleteBtn.onclick = ()=>{
+            const token = document.getElementsByName('_token')[0].value;
+            const cartId = cart.cartId;
+            const formData = new FormData();
+            formData.append('cart_id', cartId);
+            formData.append('_token', token);
+            fetch('/deleteCart', {
+                method: 'post',
+                body:formData
+            }).then(response=>response.json())
+                .then(result=>{
+                    if(result.result === 'success'){
+                        getCart();
+                    }
+                })
+        }
+    }
+</script>
 </body>
 </html>

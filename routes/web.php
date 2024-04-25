@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('pages.mainPage');});
+Route::get('/', [ProductController::class, 'showShop']);
 Route::post('/addItem', [ProductController::class, 'addItem']);
 Route::get('/shop', [ProductController::class, 'showShop']);
 Route::get('/shop/{id}', [ProductController::class, 'showSingleProduct']);
@@ -26,6 +27,8 @@ Route::post('/changeQuantity', [CartController::class, 'changeQuantity']);
 Route::post('/deleteCart', [CartController::class, 'deleteCart']);
 Route::post('/addCart', [CartController::class, 'addCart'])->middleware('auth');
 Route::view('/addItem', 'pages.addItem')->middleware('admin');
+Route::get('/getCart', [CartController::class, 'getCart'])->middleware('auth');
+Route::get('/admin', [AdminController::class, 'showAdmin'])->middleware('admin');
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

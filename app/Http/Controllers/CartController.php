@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -35,10 +37,29 @@ class CartController extends Controller
     public function addCart(Request $request){
         $productId = $request->product_id;
         $userId = auth()->user()->getAuthIdentifier();
-        $cart = new \App\Models\Cart();
-        $cart->product_id = $productId;
-        $cart->user_id = $userId;
-        $cart->save();
+        $cart = Cart::where(['user_id'=>$userId, 'product_id'=>$productId])->first();
+        if(empty($cart)){
+            $cart = new \App\Models\Cart();
+            $cart->product_id = $productId;
+            $cart->user_id = $userId;
+            $cart->save();
+        }else{
+            $cart->quantity = $cart->quantity + 1;
+            $cart->save();
+        }
         return json_encode(['result'=>'success']);
+    }
+    public function getCart(){
+        $userId = auth()->user()->getAuthIdentifier();
+        $carts = Cart::where('user_id', $userId)->get();
+        $products = [];
+        foreach ($carts as $cart){
+            $product = Product::where('id', $cart->product_id)->first();
+            $productImage = \App\Models\ProductImage::where('product_id', $cart->product_id)->first(); // Получаем картинку товара
+            $product->image = $productImage->img; // Сохраняем картинку товара в свойство image
+            $product->cartId = $cart->id;
+            $products[] = $product;
+        }
+        return json_encode($products);
     }
 }

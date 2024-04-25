@@ -4,8 +4,8 @@
     <section>
         <div class="container">
             <div class="row gutter-1 align-items-end">
-                <div class="col-md-6">
-                    <h2>Featured Products</h2>
+                <div class="col-md-6 my-5">
+                    <h2>Каталог</h2>
                 </div>
             </div>
             <div class="row">
@@ -27,10 +27,13 @@
                                                 <div class="product-price">
                                                     <span>{{$product->cost}}₽</span>
                                                     <span class="product-action">
-                                                    <a href="#!">Add to cart</a>
+                                                        <form>
+                                                            @csrf
+                                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+                                                            <a onclick="addCart(this.parentElement); return false;" href="#">Добавить в корзину</a>
+                                                        </form>
                                                   </span>
                                                 </div>
-                                                <a href="#!" class="product-like"></a>
                                             </div>
                                         </div>
                                     </div>
@@ -40,11 +43,20 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col text-center">
-                    <a href="#!" class="btn btn-outline-secondary">Load More</a>
-                </div>
-            </div>
         </div>
     </section>
+    <script>
+        function addCart(form){
+            const addCartBtn = form.getElementsByTagName('a')[0];
+            const formData = new FormData(form);
+            fetch('/addCart', {
+                method: 'POST',
+                body: formData
+            }).then(response=>response.json())
+                .then(result=>{
+                    console.log(result);
+                    addCartBtn.innerText = "В корзине";
+                });
+        }
+    </script>
 @endsection
